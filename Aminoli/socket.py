@@ -110,6 +110,7 @@ class Callbacks:
         self.methods = {
             304: self._resolve_chat_action_start,
             306: self._resolve_chat_action_end,
+            201: self._resolve_channel,
             1000: self._resolve_chat_message
         }
 
@@ -163,7 +164,9 @@ class Callbacks:
             "65282:0": self.on_welcome_message,
             "65283:0": self.on_invite_message
         }
-
+        self.channel_methods = {
+            "fetch-channel": self.on_fetch_channel
+        }
         self.chat_actions_start = {
             "Typing": self.on_user_typing_start,
         }
@@ -183,6 +186,10 @@ class Callbacks:
     def _resolve_chat_action_end(self, data):
         key = data['o'].get('actions', 0)
         return self.chat_actions_end.get(key, self.default)(data)
+
+    def _resolve_channel(self, data):
+            if data['t'] == 201:
+                return self.channel_methods.get("fetch-channel")(data)
 
     def resolve(self, data):
         data = json.loads(data)
@@ -254,5 +261,6 @@ class Callbacks:
 
     def on_user_typing_start(self, data): self.call(getframe(0).f_code.co_name, objects.Event(data["o"]).Event)
     def on_user_typing_end(self, data): self.call(getframe(0).f_code.co_name, objects.Event(data["o"]).Event)
+    def on_fetch_channel(self, data): self.call(getframe(0).f_code.co_name, objects.Event(data["o"]).Event)
 
     def default(self, data): self.call(getframe(0).f_code.co_name, data)

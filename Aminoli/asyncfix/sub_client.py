@@ -8,7 +8,6 @@ from time import timezone
 from binascii import hexlify
 from typing import BinaryIO, Union
 from time import time as timestamp
-import requests
 
 from . import client
 from ..lib.util import exceptions, headers, objects, signature
@@ -66,7 +65,7 @@ class SubClient(client.Client):
         if not self.session.closed: await self.session.close()
 
     def parse_headers(self, data: str = None, type: str = None):
-        return headers.ApisHeaders(deviceId=deviceId() if self.autoDevice else self.device_id, data=data, type=type).headers
+        return headers.ApisHeaders(deviceId=gen_deviceId() if self.autoDevice else self.device_id, data=data, type=type).headers
 
     async def get_invite_codes(self, status: str = "normal", start: int = 0, size: int = 25):
         async with self.session.get(f"{self.api}/g/s-x{self.comId}/community/invitation?status={status}&start={start}&size={size}", headers=self.parse_headers()) as response:
@@ -89,12 +88,12 @@ class SubClient(client.Client):
             if response.status != 200: return exceptions.CheckException(await response.text())
             else: return response.status
 
-    async def post_blog(self, title: str, content: str, imageList: list = None, captionList: list = None, categoriesList: list = None, backgroundColor: str = None, fansOnly: bool = False, extensions: dict = None):
+    async def post_blog(self, title: str, content: str, imageList: list = None, captionList: list = None, categoriesList: list = None, backgroundColor: str = None, fansOnly: bool = False, extensions: dict = None, code: list = None):
         mediaList = []
 
         if captionList is not None:
-            for image, caption in zip(imageList, captionList):
-                mediaList.append([100, self.upload_media(image, "image"), caption])
+            for image, caption, codigo in zip(imageList, captionList, code):
+                mediaList.append([100, self.upload_media(image, "image"), caption, codigo])
 
         else:
             if imageList is not None:
@@ -795,11 +794,20 @@ class SubClient(client.Client):
             if response.status != 200: return exceptions.CheckException(await response.text())
             else: return response.status
 
-    async def full_embed(self, link: str, image: BinaryIO, message: str, chatId: str):
+
+    async def full_embed(self, link: str, image: BinaryIO, message: str, chatId: str, replyTo: str = None, mentionUserIds: list = None):
+        if message is not None and mentionUserIds is not None:
+            message = message.replace("<$", "‎‏").replace("$>", "‬‭")
+
+        mentions = []
+        if mentionUserIds:
+            for mention_uid in mentionUserIds:
+                mentions.append({"uid": mention_uid})
         data = {
         "type": 0,
         "content": message,
         "extensions": {
+            "mentionedArray": mentions,
             "linkSnippetList": [{
                 "link": link,
                 "mediaType": 100,
@@ -811,11 +819,13 @@ class SubClient(client.Client):
             "timestamp": int(timestamp() * 1000),
             "attachedObject": None
         }
-        
+        if replyTo: data["replyMessageId"] = replyTo
+
+
         data = json.dumps(data)
-        async with self.session.post(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/message", headers=self.parse_headers(data=data), data=data) as response:
-            if response.status != 200: return exceptions.CheckException(await response.text())
-            else: return response.status
+        async with self.session.post(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/message", headers=self.parse_headers(data=data), data=data, proxies=self.proxies, verify=self.certificatePath) as response:
+            if response.status_code != 200: return exceptions.CheckException(await response.text())
+            else: return response.status_code
 
     async def delete_message(self, chatId: str, messageId: str, asStaff: bool = False, reason: str = None):
         """
@@ -1050,11 +1060,11 @@ class SubClient(client.Client):
         async with self.session.delete(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/member/{self.profile.userId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
             else: return response.status
-
-    async def send_active_obj(self, startTime: int = None, endTime: int = None, optInAdsFlags: int = 2147483647, tz: int = -timezone // 1000, timers: list = None, timestamp: int = int(timestamp() * 1000)): 
-        data = {"userActiveTimeChunkList": [{"start": startTime, "end": endTime}], "timestamp": timestamp, "optInAdsFlags": optInAdsFlags, "timezone": tz} 
+    
+    async def send_active_obj(self, startTime: int = None, endTime: int = None, optInAdsFlags: int = 27, tz: int = -timezone // 1000, timers: list = None, timestamp: int = int(timestamp() * 1000)):
+        data = {"userActiveTimeChunkList": [{"start": startTime, "end": endTime}], "timestamp": timestamp, "optInAdsFlags": optInAdsFlags, "timezone": tz, "uid": self.profile.userId} 
         if timers: data["userActiveTimeChunkList"] = timers 
-        data = json_minify(json.dumps(data))  
+        data = json.dumps(data)
         
         async with self.session.post(f"{self.api}/x{self.comId}/s/community/stats/user-active-time", headers=self.parse_headers(data=data), data=data) as response: 
           if response.status != 200: 

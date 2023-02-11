@@ -7,7 +7,6 @@ from time import timezone
 from typing import BinaryIO, Union
 from binascii import hexlify
 from time import time as timestamp
-from json_minify import json_minify
 
 from . import client
 from .lib.util import exceptions, headers, objects, signature
@@ -469,7 +468,7 @@ class SubClient(client.Client):
     def send_active_obj(self, startTime: int = None, endTime: int = None, optInAdsFlags: int = 2147483647, tz: int = -timezone // 1000, timers: list = None, timestamp: int = int(timestamp() * 1000)): 
         data = {"userActiveTimeChunkList": [{"start": startTime, "end": endTime}], "timestamp": timestamp, "optInAdsFlags": optInAdsFlags, "timezone": tz} 
         if timers: data["userActiveTimeChunkList"] = timers 
-        data = json_minify(json.dumps(data))  
+        data = json.dumps(data)
         
         response = self.session.post(f"{self.api}/x{self.comId}/s/community/stats/user-active-time", headers=self.parse_headers(data=data), data=data, proxies=self.proxies, verify=self.certificatePath) 
         if response.status_code != 200: 
