@@ -12,9 +12,3 @@ from .asyncfix import acm, client, sub_client, socket
 from .socket import Callbacks, SocketHandler
 from requests import get
 from json import loads
-
-__newest__ = loads(get("https://pypi.org/project/amino.li/").text)["info"]["version"]
-
-if __version__ != __newest__:
-    print(f"New version available: {__newest__} (Using {__version__})")
-    print("Talk in discord like 「𝑴𝑶𝑵𝑺𝑻𝑬𝑹」#4545")
