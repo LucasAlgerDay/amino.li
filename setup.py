@@ -17,7 +17,7 @@ setup(
     name="amino.li",
     license="MIT",
     author="Lucas",
-    version="0.4",
+    version="0.5",
     author_email="lucasday173@gmail.com",
     description="Library for Amino.",
     url="https://github.com/LucasAlgerDay/amino.li",
