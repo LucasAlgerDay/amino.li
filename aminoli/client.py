@@ -210,7 +210,7 @@ class Client(Callbacks, SocketHandler):
         if self.socket_enabled:
             self.run_amino_socket()
 
-    def login(self, email: str, password: str):
+    def login(self, email: str, password: str, device: str = None):
         """
         Login into an account.
 
@@ -223,12 +223,15 @@ class Client(Callbacks, SocketHandler):
 
             - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
         """
-
+        if device != None:
+            deviceId = device
+        else:
+            deviceId = self.device_id
         data = json.dumps({
             "email": email,
             "v": 2,
             "secret": f"0 {password}",
-            "deviceID": self.device_id,
+            "deviceID": deviceId,
             "clientType": 100,
             "action": "normal",
             "timestamp": int(timestamp() * 1000)
@@ -2412,3 +2415,28 @@ class Client(Callbacks, SocketHandler):
             return exceptions.CheckException(response.text)
         else:
             return objects.CommunityList(json.loads(response.text)["communityList"]).CommunityList
+
+
+    def subscribe_topic(self, comId: int, topic: int, t: int = 300, chatId: str = None):
+        # Store this in a specific class
+        topics = {
+            0: "online-members",
+            1: "users-start-typing-at",
+            2: "users-end-typing-at",
+            3: "start-recording-at",
+            4: "users-end-recording-at"
+        }
+
+        if chatId: 
+            topic = f"{topics.get(topic)}:{chatId}"
+
+        data = json.dumps({
+            "t": t,
+            "o": {
+                "id": int(timestamp() * 1000), 
+                "topic": f"ndtopic:x{comId}:{topic}",
+                "ndcId": comId
+            }
+        })
+
+        return self.send(data)

@@ -88,7 +88,6 @@ class SubClient(client.Client):
         else:
             if imageList is not None:
                 for image in imageList:
-                    print(self.upload_media(image, "image"))
                     mediaList.append([100, self.upload_media(image, "image"), None, None])
 
         data = {
@@ -246,7 +245,9 @@ class SubClient(client.Client):
 
         if imageList is not None or captionList is not None:
             data["mediaList"] = mediaList
+         
 
+    
         if nickname: data["nickname"] = nickname
         if icon: data["icon"] = self.upload_media(icon, "image")
         if content: data["content"] = content
@@ -2237,4 +2238,29 @@ class SubClient(client.Client):
         if self.comId is None: raise exceptions.CommunityNeeded()
         response = self.session.post(f"{self.api}/x{self.comId}/s/community/membership-request/{userId}/accept", headers=self.parse_headers(data=data), data=data)
         if response.status_code != 200: return exceptions.CheckException(response.text)
+        else: return response.status_code
+
+
+    def edit_biography(self, content: str = None,  imageList: list = None, captionList: list = None, code_biography: list = None):
+        mediaList = []
+
+        data = {"timestamp": int(timestamp() * 1000)}
+
+        if imageList is not None or captionList is not None:
+            data["mediaList"] = mediaList
+        
+        if (code_biography is not None) and captionList is not None:
+            for image, caption, codex in zip(imageList, captionList, code_biography):
+                imagen = self.upload_media(image, "image")
+                print(imagen)
+                mediaList.append([100, imagen, caption, codex, caption, {}])    
+
+    
+        if content: data["content"] = content
+
+        data = json.dumps(data)
+        
+        response = self.session.post(f"{self.api}/x{self.comId}/s/user-profile/{self.profile.userId}", headers=self.parse_headers(data=data), data=data, proxies=self.proxies, verify=self.certificatePath)
+        if response.status_code != 200: 
+            return exceptions.CheckException(response.text)
         else: return response.status_code

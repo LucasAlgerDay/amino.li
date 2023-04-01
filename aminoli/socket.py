@@ -111,6 +111,7 @@ class Callbacks:
             201: self._resolve_channel,
             304: self._resolve_chat_action_start,
             306: self._resolve_chat_action_end,
+            400: self._resolve_topic,
             1000: self._resolve_chat_message
         }
 
