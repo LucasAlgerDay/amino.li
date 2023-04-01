@@ -340,7 +340,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         data = {
             "value": 4,
@@ -606,7 +606,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         if isinstance(userId, str):
             response = self.session.post(f"{self.api}/x{self.comId}/s/user-profile/{userId}/member", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
@@ -632,7 +632,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.delete(f"{self.api}/x{self.comId}/s/user-profile/{self.profile.userId}/joined/{userId}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -649,7 +649,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.post(f"{self.api}/x{self.comId}/s/block/{userId}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -666,7 +666,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.delete(f"{self.api}/x{self.comId}/s/block/{userId}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -683,7 +683,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}?action=visit", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -705,7 +705,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         if reason is None: raise exceptions.ReasonNeeded()
         if flagType is None: raise exceptions.FlagTypeNeeded()
@@ -763,7 +763,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
 
         if message is not None and file is None:
@@ -872,7 +872,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         data = {
             "adminOpName": 102,
@@ -901,7 +901,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         data = json.dumps({
             "messageId": messageId,
@@ -938,7 +938,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         data = {"timestamp": int(timestamp() * 1000)}
 
@@ -1083,7 +1083,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.post(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/member/{self.profile.userId}", headers=self.parse_headers(type="application/x-www-form-urlencoded"), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1100,7 +1100,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.delete(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/member/{self.profile.userId}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1117,7 +1117,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.delete(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1243,7 +1243,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`User Object <amino.lib.util.objects.UserProfile>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1262,7 +1262,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`User List <amino.lib.util.objects.UserProfileList>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}/joined?start={start}&size={size}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1281,7 +1281,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`User List <amino.lib.util.objects.UserProfileList>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}/member?start={start}&size={size}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1300,7 +1300,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`Visitors List <amino.lib.util.objects.visitorsList>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}/visitors?start={start}&size={size}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1348,7 +1348,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`Users List <amino.lib.util.objects.UserProfileList>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/block?start={start}&size={size}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1366,7 +1366,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`List of User IDs <List>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
 
         response = self.session.get(f"{self.api}/x{self.comId}/s/block?start={start}&size={size}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
@@ -1444,7 +1444,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`Chat List <amino.lib.util.objects.ThreadList>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/chat/thread?type=joined-me&start={start}&size={size}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1462,7 +1462,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`Chat List <amino.lib.util.objects.ThreadList>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/chat/thread?type=public-all&filterType={type}&start={start}&size={size}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1479,7 +1479,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`Chat Object <amino.lib.util.objects.Thread>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1498,7 +1498,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`Message List <amino.lib.util.objects.MessageList>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
 
         if pageToken is not None: url = f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/message?v=2&pagingType=t&pageToken={pageToken}&size={size}"
@@ -1520,7 +1520,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`Message Object <amino.lib.util.objects.Message>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         response = self.session.get(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/message/{messageId}", headers=self.parse_headers(), proxies=self.proxies, verify=self.certificatePath)
         if response.status_code != 200: 
@@ -1597,7 +1597,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`Comments List <amino.lib.util.objects.CommentList>`
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
         if sorting == "newest": sorting = "newest"
         elif sorting == "oldest": sorting = "oldest"
@@ -2080,7 +2080,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
 
         """
 
@@ -2107,7 +2107,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofix.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoli.lib.util.exceptions>`
         """
 
         data = json.dumps({

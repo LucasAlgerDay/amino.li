@@ -326,7 +326,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         data = {
             "value": 4,
@@ -566,7 +566,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         if isinstance(userId, str):
             async with self.session.post(f"{self.api}/x{self.comId}/s/user-profile/{userId}/member", headers=self.parse_headers()) as response:
@@ -592,7 +592,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.delete(f"{self.api}/x{self.comId}/s/user-profile/{self.profile.userId}/joined/{userId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -608,7 +608,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.post(f"{self.api}/x{self.comId}/s/block/{userId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -624,7 +624,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.delete(f"{self.api}/x{self.comId}/s/block/{userId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -640,7 +640,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}?action=visit", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -661,7 +661,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         if reason is None: raise exceptions.ReasonNeeded()
         if flagType is None: raise exceptions.FlagTypeNeeded()
@@ -720,7 +720,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
 
         if message is not None and file is None:
@@ -840,7 +840,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         data = {
             "adminOpName": 102,
@@ -871,7 +871,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         data = json.dumps({
             "messageId": messageId,
@@ -907,7 +907,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         data = {"timestamp": int(timestamp() * 1000)}
 
@@ -1039,7 +1039,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.post(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/member/{self.profile.userId}", headers=self.parse_headers(type="application/x-www-form-urlencoded")) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1055,7 +1055,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasynс.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasynс.lib.util.exceptions>`
         """
         async with self.session.delete(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/member/{self.profile.userId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1081,7 +1081,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.delete(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1195,9 +1195,9 @@ class SubClient(client.Client):
             - **userId** : ID of the User.
 
         **Returns**
-            - **Success** : :meth:`User Object <aminofixasync.lib.util.objects.UserProfile>`
+            - **Success** : :meth:`User Object <aminoliasync.lib.util.objects.UserProfile>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1213,9 +1213,9 @@ class SubClient(client.Client):
             - *size* : Size of the list.
 
         **Returns**
-            - **Success** : :meth:`User List <aminofixasync.lib.util.objects.UserProfileList>`
+            - **Success** : :meth:`User List <aminoliasync.lib.util.objects.UserProfileList>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}/joined?start={start}&size={size}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1231,9 +1231,9 @@ class SubClient(client.Client):
             - *size* : Size of the list.
 
         **Returns**
-            - **Success** : :meth:`User List <aminofixasync.lib.util.objects.UserProfileList>`
+            - **Success** : :meth:`User List <aminoliasync.lib.util.objects.UserProfileList>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}/member?start={start}&size={size}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1249,9 +1249,9 @@ class SubClient(client.Client):
             - *size* : Size of the list.
 
         **Returns**
-            - **Success** : :meth:`Visitors List <aminofixasync.lib.util.objects.visitorsList>`
+            - **Success** : :meth:`Visitors List <aminoliasync.lib.util.objects.visitorsList>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/user-profile/{userId}/visitors?start={start}&size={size}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1291,9 +1291,9 @@ class SubClient(client.Client):
             - *size* : Size of the list.
 
         **Returns**
-            - **Success** : :meth:`Users List <aminofixasync.lib.util.objects.UserProfileList>`
+            - **Success** : :meth:`Users List <aminoliasync.lib.util.objects.UserProfileList>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/block?start={start}&size={size}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1310,7 +1310,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : :meth:`List of User IDs <List>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/block?start={start}&size={size}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1380,9 +1380,9 @@ class SubClient(client.Client):
             - *size* : Size of the list.
 
         **Returns**
-            - **Success** : :meth:`Chat List <aminofixasync.lib.util.objects.ThreadList>`
+            - **Success** : :meth:`Chat List <aminoliasync.lib.util.objects.ThreadList>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/chat/thread?type=joined-me&start={start}&size={size}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1397,9 +1397,9 @@ class SubClient(client.Client):
             - *size* : Size of the list.
 
         **Returns**
-            - **Success** : :meth:`Chat List <aminofixasync.lib.util.objects.ThreadList>`
+            - **Success** : :meth:`Chat List <aminoliasync.lib.util.objects.ThreadList>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/chat/thread?type=public-all&filterType={type}&start={start}&size={size}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1413,9 +1413,9 @@ class SubClient(client.Client):
             - **chatId** : ID of the Chat.
 
         **Returns**
-            - **Success** : :meth:`Chat Object <aminofixasync.lib.util.objects.Thread>`
+            - **Success** : :meth:`Chat Object <aminoliasync.lib.util.objects.Thread>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1431,9 +1431,9 @@ class SubClient(client.Client):
             - *pageToken* : Next Page Token.
 
         **Returns**
-            - **Success** : :meth:`Message List <aminofixasync.lib.util.objects.MessageList>`
+            - **Success** : :meth:`Message List <aminoliasync.lib.util.objects.MessageList>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
 
         if pageToken is not None: url = f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/message?v=2&pagingType=t&pageToken={pageToken}&size={size}"
@@ -1452,9 +1452,9 @@ class SubClient(client.Client):
             - **message** : ID of the Message.
 
         **Returns**
-            - **Success** : :meth:`Message Object <aminofixasync.lib.util.objects.Message>`
+            - **Success** : :meth:`Message Object <aminoliasync.lib.util.objects.Message>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         async with self.session.get(f"{self.api}/x{self.comId}/s/chat/thread/{chatId}/message/{messageId}", headers=self.parse_headers()) as response:
             if response.status != 200: return exceptions.CheckException(await response.text())
@@ -1523,9 +1523,9 @@ class SubClient(client.Client):
             - *size* : Size of the list.
 
         **Returns**
-            - **Success** : :meth:`Comments List <aminofixasync.lib.util.objects.CommentList>`
+            - **Success** : :meth:`Comments List <aminoliasync.lib.util.objects.CommentList>`
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
         if sorting == "newest": sorting = "newest"
         elif sorting == "oldest": sorting = "oldest"
@@ -2017,7 +2017,7 @@ class SubClient(client.Client):
         **Returns**
             - **Success** : 200 (int)
 
-            - **Fail** : :meth:`Exceptions <aminofixasync.lib.util.exceptions>`
+            - **Fail** : :meth:`Exceptions <aminoliasync.lib.util.exceptions>`
         """
 
         data = json.dumps({

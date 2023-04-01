@@ -49,7 +49,7 @@ class ACM(client.Client):
                 "type": 1,
                 "identity": email
             },
-            "deviceID": device.device_id
+            "deviceID": self.device_id
         })
 
         if self.comId is None: raise exceptions.CommunityNeeded()
